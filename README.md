@@ -27,10 +27,10 @@ Under Proof of Work, miners are responsible for producing new blocks. Miners in 
 The race is won by whoever's computer can solve a computationally hard mathematical puzzle the fastest. The problem is computationally hard to solve, but very easy to verify. The solution to this problem is the 'certificate of legitimacy' we discussed in the `What is Mining?` tutorial.
 
 ### Network Security
-The network is kept secure by the fact that to gain 51% control over the network, you would need 51% of the network's computational power. However, since Proof of Work incentivizes miners with mining rewards, getting 51% of all computational power on a network requires **huge** investments in equipment and electrical energy - which means you're likely to end up spending more than you would earn.
+The network is kept secure by the fact that to gain 51% control over the network, you would need 51% of the network's computational power. However, since Proof of Work incentivizes miners with mining rewards, a lot of different groups of miners are interested in running mining nodes. Therefore, getting 51% of all computational power on a network requires **huge** investments in equipment and electrical energy - which means you're likely to end up spending more than you would earn.
 
 ## Sybil Resistance
-Technically speaking, proof of work is not a consensus protocol by itself - though it is often referred to as such for simplicity. They are actually **Sybil resistance mechanisms** and **block producer selectors** - a way to decide who is going to be the producer of the latest block.
+Technically speaking, proof of work is **not** a consensus protocol by itself - though it is often referred to as such for simplicity. They are actually **Sybil resistance mechanisms** and **block producer selectors** - a way to decide who is going to be the producer of the latest block.
 
 **Sybil Resistance** measures how a protocol would do against a **Sybil attack**.
 
@@ -47,6 +47,8 @@ Since rewards are given out to successful miners, and miners become successful r
 ## Chain Selection Rules
 
 Occasionally, two miners will produce valid blocks roughly at the same time. This can cause different nodes in the network to include different blocks in their blockchain. The technical term for this is a **fork**.
+
+![](https://theblockchaincafe.com/wp-content/uploads/2019/09/Types-Of-Forks-In-Blockchain-Network.png)
 
 However, for blockchains to proceed in a stable fashion, a single contiguous chain needs to be chosen as the "correct chain" to prevent the splitting of state. 
 
@@ -68,19 +70,24 @@ But to complicate things further, transactions rejected on the temporary fork ma
 ## The 'Work' in Proof of Work
 We've been talking about a computationally hard mathematical problem that miners need to solve to provide a certificate of legitimacy. But what does this actually mean?
 
-Essentially, we want to prove that the miners expended energy and computational power to compute the block. And, that they did so faster than everyone else. If we can prove this, it means that the miner essentially spent money (in the form of energy and computation) so they could get a chance to propose a new block. 
+Essentially, we want to prove that the miners expended energy and computational power to compute the block. And, that they did so faster than everyone else. If we can prove this, it means that the miner essentially spent money and time (in the form of energy and computation) so they could get a chance to propose a new block. 
 
-It is in the miners best interest to produce valid blocks, because if they are caught lying (which is very easy since verification of the certificate is easy) - they just wasted all that energy and computation for nothing. As such, solving the mathematical problem means the miner *really, really* wants to propose the new block, and is willing to spend energy and computation to receive the reward.
+It is in the miners best interest to produce valid blocks, because if they are caught lying (which is very easy since verification of the certificate is easy) - they just wasted all that energy and computation for nothing and therefore lost their money and time. As such, solving the mathematical problem means the miner *really, really* wants to propose the new block, and is willing to spend energy and computation to receive the reward.
 
-The Ethereum proof-of-work protocol, **Ethash**, requires miners to go through an intense race of trial and error. 
+The Ethereum proof-of-work protocol, **Ethash**, requires miners to go through an intense race of trial and error. The process goes as follows:
 
-When racing to create a block, the miner repeatedly puts a large dataset (that can be gotten by downloading and running an Ethereum node) roughly ~1GB in size through a math function. This dataset is used to generate a 128-byte `mixHash` and a `target` value, which depends on the current difficulty of mining.
+- The miner selects a group of transactions to include in a potential block
+- Based on the block they create, the network has rules to choose a slice of data (roughly ~1GB in size) from the current state of the blockchain network. These rules are not particularly relevant, but you can read more about them in the Ethash docs.
+- They put the dataset through a hashing function to calculate a `target` value. This `target` is a number, which is inversely proportionate to the mining difficulty. The higher the mining difficulty, the lower the `target`, and vice versa.
+- Then, the miner uses brute force to try to find another random number called the `nonce`. 
+- Putting the combination of the dataset, target, nonce, and a couple other values through a hashing function should result in a number that is lower than the `target`.
+- `HashFunction(dataset, target, nonce, ...) = a number` 
+- The higher the mining difficulty, the lower the `target`, and hence the harder it is to find a `nonce` which satisfies this condition.
+- Miners keep using trial-and-error to find a valid value for the `nonce` which satisfies the condition. There is no formula to calculate the `nonce`.
 
 > The mining difficulty becomes less or more difficult based on how many miners are on the network, to ensure that a block can be reliably produced roughly every ~15 seconds. If it becomes too easy and there are a lot of miners, blocks will be produced much faster than 15 seconds. Likewise, if it becomes too hard and there are not a lot of miners, blocks will take a long time to be produced. Difficulty is calculated by the network automatically.
 
-Then, it is the miner's job to use trial-and-error to find a random number, called the `nonce`, which when appended to the dataset and hashed, results in a value smaller than the `target`.
-
-There is no way to solve this other than trial-and-error, as currently there does not exist a way to reverse hash functions. Therefore, to know if a certain `nonce` when appended to the dataset results in a specific hash, the only way possible is to try random values for the `nonce` and check.
+There is no way to solve this other than brute force, as currently there does not exist a way to reverse hash functions. Therefore, to know if a certain `nonce`, when appended to the dataset results in a specific hash, the only way possible is to try random values for the `nonce` and check.
 
 Take some time to read this section thoroughly, this is all there is to Proof of Work. It might seem quite anticlimactic, but think about what we started off wanting to prove. We wanted to prove that miners did hard work to produce this block, and it wasn't a piece of cake for them. Since they did hard work, it is in their best interest to not lie. This sort of computation puzzle does exactly that, because finding a valid `nonce` is a computationally hard problem - but verifying it is easy, so other nodes can easily verify that the miner did in fact find a valid `nonce`, which means they did in fact put in the work.
 

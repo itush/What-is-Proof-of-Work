@@ -99,7 +99,8 @@ Watch the following video for a visual understanding of everything we just read 
 [![But how does Bitcoin actually work?](https://i.imgur.com/b6FKTLt.png)](https://www.youtube.com/watch?v=bBC-nXj3Ng4)
 
 ## Resources
-The following are recommended, but optional, readings/viewings to understand more about Proof of Work. 
+The following are recommended, but optional, readings/viewings to understand more about Proof of Work.
+- [Anderson Brownworth Blockchain Mining Demo](https://andersbrownworth.com/blockchain)
 - [What is Proof of Work? by Binance Academy](https://www.youtube.com/watch?v=3EUAcxhuoU4)
 - [A technical explanation of Proof of Work by Khan Academy](https://www.youtube.com/watch?v=9V1bipPkCTU)
 - [51% Attacks](https://en.bitcoin.it/wiki/Majority_attack)

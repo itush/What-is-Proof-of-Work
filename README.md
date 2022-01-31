@@ -40,7 +40,7 @@ Hypothetically, if we were to choose the producer of a block just by random sele
 
 Suppose there are 2 miners on the network. Alice and Bob. By random selection, they should be getting roughly half of the mining rewards each. Now, Charlie comes along, but pretends to be 2 different users - Charlie and Darcy. By random selection now, Charlie would end up receiving 1/2 the mining rewards as he is pretending to be 2 different users, whereas Alice and Bob only get 1/4 each instead of 1/3 which they should.
 
-Proof of Work protects against Sybil attacks by making miners put up a large amount of computational power as collatateral, therefore having them expend a lot of electrical energy. This is done through the solving of the computation puzzle to prove that the miners are 'putting in the work'. This acts as an economic deterrent to Sybil attacks. 
+Proof of Work protects against Sybil attacks by making miners put up a large amount of computational power as collateral, therefore having them expend a lot of electrical energy. This is done through the solving of the computation puzzle to prove that the miners are 'putting in the work'. This acts as an economic deterrent to Sybil attacks. 
 
 Since rewards are given out to successful miners, and miners become successful roughly proportional to their share of computational power on the network, it doesn't matter anymore if you're pretending to be 1 user or 2 or 100. You will get the same amount of mining rewards as your computation power stays the same.
 
